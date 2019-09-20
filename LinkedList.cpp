@@ -49,6 +49,23 @@ public:
 		}
 	}
 
+	void deleteNode(X val, LinkedList* &head) {
+
+		LinkedList* ptr, *prev;
+
+		if (isEmpty(head)) {
+			cout << "Delete operation cannot be done. List is empty."<<endl;
+		}
+		else if(head->info == val) {
+			ptr = head;
+			head = head->next;
+			delete ptr;
+		}
+		else {
+
+		}
+	}
+
 	void displayList(LinkedList* head) {
 
 		LinkedList* ptr = head;
