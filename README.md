@@ -1,2 +1,2 @@
-# dsa-assign1
+# Data Structures & Algorithms
 Assignment of Data Structures &amp; Algorithms
