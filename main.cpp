@@ -15,5 +15,12 @@ int main() {
 	head->deleteNode(7, head);
 	head->displayList(head);
 	dHead->isEmpty(dHead);
-	
+	dHead->addNode(33, dHead);
+	dHead->addNode(44, dHead);
+	dHead->addNode(55, dHead);
+	dHead->addNode(66, dHead);
+	dHead->displayList(dHead);
+	cout << "deleting node." << endl;
+	dHead->deleteNode(55, dHead);
+	dHead->displayList(dHead);
 }
