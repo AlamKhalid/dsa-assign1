@@ -8,7 +8,8 @@
 
 using namespace std;
 
-template <class X> class LinkedList {
+template <class X>
+class LinkedList {
 
 private:
 	X info;
