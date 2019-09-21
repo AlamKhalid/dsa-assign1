@@ -51,7 +51,7 @@ public:
 
 	void deleteNode(X val, LinkedList* &head) {
 
-		LinkedList* ptr, *prev;
+		LinkedList* ptr, *delNode;
 
 		if (isEmpty(head)) {
 			cout << "Delete operation cannot be done. List is empty."<<endl;
@@ -61,9 +61,19 @@ public:
 			head = head->next;
 			delete ptr;
 		}
-		else {
+		else if (head->info != val) {
+			ptr = head;
+					while (ptr->next->info != val) {
+						ptr = ptr->next;
+				}
+					delNode = ptr->next;
+					ptr->next = ptr->next->next;
+					delete delNode;
 
 		}
+
+
+		
 	}
 
 	void displayList(LinkedList* head) {
@@ -81,3 +91,4 @@ public:
 		}
 	}
 };
+
