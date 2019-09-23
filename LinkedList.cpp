@@ -14,47 +14,47 @@ class LinkedList {
 private:
 	X info;
 	LinkedList* next;
+	static LinkedList* head;
+	static LinkedList* tail;
 
 public:
+	static int length;
+
 	// Construction defition starts here
-	LinkedList() {
-		info = 0;
-		next = NULL;
-	}
+	LinkedList() {}
 
 	LinkedList(X val) {
 		this->info = val;
 		this->next = NULL;
+		length++;
 	}
 
-	// Member function's definition start's here
+	// Member function's definition starts here
 
-	bool isEmpty(LinkedList* head) {
+	bool isEmpty() {
 		return head==NULL;
 	}
 
-	void addNode(X val, LinkedList* &head) {
+	void addNodeEnd(X val) {
 		
 		LinkedList* newNode = new LinkedList(val);
 		LinkedList* ptr;
 		
 		if (head == NULL) {
 			head = newNode;
+			tail = head;
 		}
 		else {
-			ptr = head;
-			while (ptr->next) {
-				ptr = ptr->next;
-			}
-			ptr->next = newNode;
+			tail->next = newNode;
+			tail = newNode;
 		}
 	}
 
-	void deleteNode(X val, LinkedList* &head) {
+	void deleteNode(X val) {
 
 		LinkedList* ptr, *delNode;
 
-		if (isEmpty(head)) {
+		if (isEmpty()) {
 			cout << "Delete operation cannot be done. List is empty."<<endl;
 		}
 		else if(head->info == val) {
@@ -70,18 +70,14 @@ public:
 					delNode = ptr->next;
 					ptr->next = ptr->next->next;
 					delete delNode;
-
 		}
-
-
-		
 	}
 
-	void displayList(LinkedList* head) {
+	void displayList() {
 
 		LinkedList* ptr = head;
 
-		if (!isEmpty(head)) {
+		if (!isEmpty()) {
 			while (ptr) {
 				cout << ptr->info << endl;
 				ptr = ptr->next;
@@ -93,3 +89,8 @@ public:
 	}
 };
 
+// Static variables declaration of above here
+
+template <class X> int LinkedList<X>::length = 0;
+template <class X> LinkedList<X>* LinkedList<X>::head = NULL;
+template <class X> LinkedList<X>* LinkedList<X>::tail = NULL;
