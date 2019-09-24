@@ -82,7 +82,7 @@ public:
 			else {
 				prev->next = newNode;
 			}
-
+			len++;
 		}
 		else {
 			cout << "Invalid index. Please try again." << endl;
