@@ -12,21 +12,30 @@ template <class X>
 class LinkedList {
 
 private:
-	X info;
-	LinkedList* next;
-	static LinkedList* head;
-	static LinkedList* tail;
+
+	int len;
+
+	class Node {
+
+	public:
+		X info;
+		Node* next;
+
+		Node(X val) {
+			this->info = val;
+			next = NULL;
+		}
+	};
+
+	Node* head;
+	Node* tail;
 
 public:
-	static int length;
 
 	// Construction defition starts here
-	LinkedList() {}
-
-	LinkedList(X val) {
-		this->info = val;
-		this->next = NULL;
-		length++;
+	LinkedList() {
+		head = tail = NULL;
+		len = 0;
 	}
 
 	// Member function's definition starts here
@@ -35,14 +44,19 @@ public:
 		return head==NULL;
 	}
 
+	int length() {
+		return this->len;
+	}
+
 	void addNodeEnd(X val) {
 		
-		LinkedList* newNode = new LinkedList(val);
-		LinkedList* ptr;
+		Node* newNode = new Node(val);
+		Node* ptr;
+
+		len++;
 		
 		if (head == NULL) {
-			head = newNode;
-			tail = head;
+			head = tail = newNode;
 		}
 		else {
 			tail->next = newNode;
@@ -52,7 +66,7 @@ public:
 
 	void deleteNode(X val) {
 
-		LinkedList* ptr, *delNode;
+		Node* ptr, *delNode;
 
 		if (isEmpty()) {
 			cout << "Delete operation cannot be done. List is empty."<<endl;
@@ -61,21 +75,44 @@ public:
 			ptr = head;
 			head = head->next;
 			delete ptr;
+			len--;
 		}
 		else if (head->info != val) {
 			ptr = head;
 					while (ptr->next->info != val) {
 						ptr = ptr->next;
 				}
-					delNode = ptr->next;
-					ptr->next = ptr->next->next;
-					delete delNode;
+			delNode = ptr->next;
+			ptr->next = ptr->next->next;
+			delete delNode;
+			len--;
 		}
+	}
+
+	void deleteFirstNode() {
+
+		Node* ptr;
+		if (!isEmpty()) {
+			ptr = head;
+			head = head->next;
+			if (!head) {
+				tail = head;
+			}
+			delete ptr;
+			len--;
+		}
+		else {
+			cout << "List is empty." << endl;
+		}
+	}
+
+	void deleteLastNode() {
+		deleteNode(tail->info);
 	}
 
 	void displayList() {
 
-		LinkedList* ptr = head;
+		Node* ptr = head;
 
 		if (!isEmpty()) {
 			while (ptr) {
@@ -88,9 +125,3 @@ public:
 		}
 	}
 };
-
-// Static variables declaration of above here
-
-template <class X> int LinkedList<X>::length = 0;
-template <class X> LinkedList<X>* LinkedList<X>::head = NULL;
-template <class X> LinkedList<X>* LinkedList<X>::tail = NULL;

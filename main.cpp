@@ -6,9 +6,10 @@
 using namespace std;
 
 int main() {
-	LinkedList<char> list1;
-	list1.addNodeEnd('c');
-	list1.displayList();
+	LinkedList<int> list;
+	list.addNodeEnd(5);
+	list.deleteFirstNode();
+	cout<<list.length();
 
 	//LinkedList<int> *head=NULL;
 	/*
