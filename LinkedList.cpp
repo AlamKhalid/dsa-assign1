@@ -102,15 +102,22 @@ public:
 			delete ptr;
 			len--;
 		}
-		else if (head->info != val) {
+		else {
 			ptr = head;
-				while (ptr->next->info != val) {
-						ptr = ptr->next;
-				}
-			delNode = ptr->next;
-			ptr->next = ptr->next->next;
-			delete delNode;
-			len--;
+			int i = 0;
+			while (ptr->next->info != val && i < len - 1) {		// some masla
+					ptr = ptr->next;
+					i++;
+			}
+			if (i != len - 1) {		
+				delNode = ptr->next;
+				ptr->next = ptr->next->next;
+				delete delNode;
+				len--;
+			}
+			else {
+				cout << "Value does not exist." << endl;
+			}
 		}
 	}
 
