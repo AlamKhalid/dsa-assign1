@@ -21,9 +21,9 @@ private:
 		X info;
 		Node* next;
 
-		Node(X val) {
+		Node(X val = 0, Node* ptr = NULL) {
 			this->info = val;
-			next = NULL;
+			next = ptr;
 		}
 	};
 
@@ -64,7 +64,32 @@ public:
 		}
 	}
 
-	void deleteNode(X val) {
+	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
+
+		if (index >= 0 && index <= len) {
+
+			Node* current=head, *prev = NULL;
+
+			for (int i = 0; i < index; i++) {
+				prev = current;
+				current = current->next;
+			}
+
+			Node* newNode = new Node(val, current);
+			if (!prev) {
+				head = newNode;
+			}
+			else {
+				prev->next = newNode;
+			}
+
+		}
+		else {
+			cout << "Invalid index. Please try again." << endl;
+		}
+	}
+
+	void deleteNode(X val) {		// Delete by value
 
 		Node* ptr, *delNode;
 
@@ -79,7 +104,7 @@ public:
 		}
 		else if (head->info != val) {
 			ptr = head;
-					while (ptr->next->info != val) {
+				while (ptr->next->info != val) {
 						ptr = ptr->next;
 				}
 			delNode = ptr->next;
@@ -89,13 +114,34 @@ public:
 		}
 	}
 
+	void deleteNodeAt(int index = len - 1) {			// Delete at index
+		
+		if (index >= 0 && index < len) {
+			Node* current = head, * prev=NULL;
+
+			for (int i = 0; i < index; i++) {
+				prev = current;
+				current = current->next;
+			}
+			prev->next = current->next;
+			if (!current->next) {			// Adjusting tail
+				tail = prev;
+			}
+			delete current;
+			len--;
+		}
+		else {
+			cout << "Invalid index." << endl;
+		}
+	}
+
 	void deleteFirstNode() {
 
 		Node* ptr;
 		if (!isEmpty()) {
 			ptr = head;
 			head = head->next;
-			if (!head) {
+			if (!head) {			// If there is only 1 node in the list
 				tail = head;
 			}
 			delete ptr;
@@ -106,19 +152,16 @@ public:
 		}
 	}
 
-	void deleteLastNode() {
-		deleteNode(tail->info);
-	}
-
 	void displayList() {
 
 		Node* ptr = head;
 
 		if (!isEmpty()) {
 			while (ptr) {
-				cout << ptr->info << endl;
+				cout << ptr->info << " ";
 				ptr = ptr->next;
 			}
+			cout << endl;
 		}
 		else {
 			cout << "The list is empty." << endl;
