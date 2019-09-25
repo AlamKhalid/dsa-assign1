@@ -23,7 +23,7 @@ private:
 
 		Node(X val = 0, Node* ptr = NULL) {
 			this->info = val;
-			next = ptr;
+			this->next = ptr;
 		}
 	};
 
@@ -172,6 +172,34 @@ public:
 		}
 		else {
 			cout << "The list is empty." << endl;
+		}
+	}
+
+	void searchFor(X val) {
+		
+		if (!isEmpty()) {
+			Node* ptr = head;
+			int index = 0;
+			int flag = 0;
+
+			do (ptr) {
+				if (ptr->info == val) {
+					if (!flag) {
+						cout << "Found at following indicies:\n";
+					}
+					cout << "Index: "<<index<< << endl;
+					flag = 1;
+				}
+				ptr = ptr->next;
+				index++;
+			} while (ptr);
+
+			if (!flag) {
+				cout << "No node with such value exists" << endl;
+			}
+		}
+		else {
+			cout << "List is empty." << endl;
 		}
 	}
 };
