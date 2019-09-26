@@ -11,6 +11,24 @@ int main() {
 	list.deleteFirstNode();
 	cout<<list.length();
 
+	/*
+	DoublyLinkedList<int> list;
+	list.addNodeStart(10);
+	list.addNodeEnd(5);
+	list.addNodeAt(15, 2);
+	cout << list.length() << endl;;
+	list.displayList();
+	list.deleteFirst();
+	list.displayList();
+	list.deleteLast();
+	list.displayList();
+	list.addNodeEnd(5);
+	list.addNodeAt(15, 2);
+	list.displayList();
+	list.deleteNodeAt(2);
+	list.displayList(); */
+	
+	
 	//LinkedList<int> *head=NULL;
 	/*
 	head->addNode(5, head);
