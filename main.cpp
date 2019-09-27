@@ -1,13 +1,16 @@
 #include<iostream>
 #include<string>
 
+
 #include "LinkedList.cpp"
-#include "DoublyLinkedList.cpp"
+//#include "DoublyLinkedList.cpp"
 using namespace std;
 
 int main() {
 	LinkedList<int> list;
 	list.addNodeEnd(5);
+	list.addNodeEnd(7);
+	cout << list.length();
 	list.deleteFirstNode();
 	cout<<list.length();
 

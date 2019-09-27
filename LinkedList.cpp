@@ -1,6 +1,6 @@
 /* This space is left intentionally to improve readability */
 
-/* This .cpp file contains the definition of Singly Linked List 
+/* This .cpp file contains the definition of Singly Linked List
    We have made this class generic by using 'template' keyword
    having 'X' as a placeholder for the datatype */
 
@@ -9,26 +9,27 @@
 using namespace std;
 
 template <class X>
+class Node {
+
+public:
+	X info;
+	Node<X>* next;
+
+	Node(X val = 0, Node * ptr = NULL) {
+		this->info = val;
+		this->next = ptr;
+	}
+};
+
+template <class X>
 class LinkedList {
 
 private:
 
 	int len;
 
-	class Node {
-
-	public:
-		X info;
-		Node* next;
-
-		Node(X val = 0, Node* ptr = NULL) {
-			this->info = val;
-			this->next = ptr;
-		}
-	};
-
-	Node* head;
-	Node* tail;
+	Node<X>* head;
+	Node<X>* tail;
 
 public:
 
@@ -41,7 +42,7 @@ public:
 	// Member function's definition starts here
 
 	bool isEmpty() {
-		return head==NULL;
+		return head == NULL;
 	}
 
 	int length() {
@@ -49,12 +50,12 @@ public:
 	}
 
 	void addNodeEnd(X val) {
-		
-		Node* newNode = new Node(val);
-		Node* ptr;
+
+		Node<X>* newNode = new Node<X>(val);
+		Node<X>* ptr;
 
 		len++;
-		
+
 		if (head == NULL) {
 			head = tail = newNode;
 		}
@@ -68,14 +69,14 @@ public:
 
 		if (index >= 0 && index <= len) {
 
-			Node* current=head, *prev = NULL;
+			Node<X>* current = head, * prev = NULL;
 
 			for (int i = 0; i < index; i++) {
 				prev = current;
 				current = current->next;
 			}
 
-			Node* newNode = new Node(val, current);
+			Node<X>* newNode = new Node<X>(val, current);
 			if (!prev) {
 				head = newNode;
 			}
@@ -91,12 +92,12 @@ public:
 
 	void deleteNode(X val) {		// Delete by value
 
-		Node* ptr, *delNode;
+		Node<X>* ptr, * delNode;
 
 		if (isEmpty()) {
-			cout << "Delete operation cannot be done. List is empty."<<endl;
+			cout << "Delete operation cannot be done. List is empty." << endl;
 		}
-		else if(head->info == val) {
+		else if (head->info == val) {
 			ptr = head;
 			head = head->next;
 			delete ptr;
@@ -106,10 +107,10 @@ public:
 			ptr = head;
 			int i = 0;
 			while (ptr->next->info != val && i < len - 1) {		// some masla
-					ptr = ptr->next;
-					i++;
+				ptr = ptr->next;
+				i++;
 			}
-			if (i != len - 1) {		
+			if (i != len - 1) {
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delete delNode;
@@ -122,9 +123,9 @@ public:
 	}
 
 	void deleteNodeAt(int index = len - 1) {			// Delete at index
-		
+
 		if (index >= 0 && index < len) {
-			Node* current = head, * prev=NULL;
+			Node<X>* current = head, * prev = NULL;
 
 			for (int i = 0; i < index; i++) {
 				prev = current;
@@ -144,7 +145,7 @@ public:
 
 	void deleteFirstNode() {
 
-		Node* ptr;
+		Node<X>* ptr;
 		if (!isEmpty()) {
 			ptr = head;
 			head = head->next;
@@ -161,7 +162,7 @@ public:
 
 	void displayList() {
 
-		Node* ptr = head;
+		Node<X>* ptr = head;
 
 		if (!isEmpty()) {
 			while (ptr) {
@@ -176,18 +177,18 @@ public:
 	}
 
 	void searchFor(X val) {
-		
+
 		if (!isEmpty()) {
-			Node* ptr = head;
+			Node<X>* ptr = head;
 			int index = 0;
 			int flag = 0;
 
-			do (ptr) {
+			do {
 				if (ptr->info == val) {
 					if (!flag) {
 						cout << "Found at following indicies:\n";
 					}
-					cout << "Index: "<<index<< << endl;
+					cout << "Index: " << index << endl;
 					flag = 1;
 				}
 				ptr = ptr->next;
