@@ -8,47 +8,26 @@ using namespace std;
 
 int main() {
 	SinglyLinkedList<int> list;
-	list.addNodeEnd(5);
-	list.addNodeEnd(7);
-	cout << list.length();
-	list.deleteFirstNode();
-	cout<<list.length();
 
-	/*
-	DoublyLinkedList<int> list;
-	list.addNodeStart(10);
-	list.addNodeEnd(5);
-	list.addNodeAt(15, 2);
-	cout << list.length() << endl;;
 	list.displayList();
-	list.deleteFirst();
+	list.addNode(5);
+	list.addNode(66);
+	list.addNode(88);
 	list.displayList();
-	list.deleteLast();
+	list.deleteFirstNode();
 	list.displayList();
-	list.addNodeEnd(5);
-	list.addNodeAt(15, 2);
+	list.deleteNode(66);
 	list.displayList();
-	list.deleteNodeAt(2);
-	list.displayList(); */
-	
-	
-	//LinkedList<int> *head=NULL;
-	/*
-	head->addNode(5, head);
-	head->addNode(6, head);
-	head->addNode(7, head);
-	head->displayList(head);
-	head->deleteNode(7, head);
-	head->displayList(head); */
-	/*
-	DoublyLinkedList<int>* dHead = NULL;
-	dHead->isEmpty(dHead);
-	dHead->addNode(33, dHead);
-	dHead->addNode(44, dHead);
-	dHead->addNode(55, dHead);
-	dHead->addNode(66, dHead);
-	dHead->displayList(dHead);
-	cout << "deleting node." << endl;
-	dHead->deleteNode(55, dHead);
-	dHead->displayList(dHead); */
+	list.addNode(7);
+	list.addNode(99);
+	list.displayList();
+	list.addNodeEnd(55);
+	list.addNode(22);
+	list.displayList();
+	list.deleteNode(7);
+	list.deleteNodeAt(4);
+	list.displayList();
+	cout << list.isEmpty() << endl;
+	cout << list.length() << endl;
+	list.searchFor(22);
 }

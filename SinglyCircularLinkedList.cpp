@@ -81,7 +81,11 @@ public:
 			}
 
 			Node* newNode = new Node(val, current);
-			if (!prev) {
+			if (head == NULL) {
+				head = tail = newNode;
+				tail->next = head;
+			}
+			else if (!prev) {
 				head = newNode;
 				tail->next = head;
 			}
