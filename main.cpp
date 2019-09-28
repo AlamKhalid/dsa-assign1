@@ -2,12 +2,12 @@
 #include<string>
 
 
-#include "LinkedList.cpp"
+#include "SinglyLinkedList.cpp"
 //#include "DoublyLinkedList.cpp"
 using namespace std;
 
 int main() {
-	LinkedList<int> list;
+	SinglyLinkedList<int> list;
 	list.addNodeEnd(5);
 	list.addNodeEnd(7);
 	cout << list.length();
