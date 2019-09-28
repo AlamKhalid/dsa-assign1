@@ -1,6 +1,6 @@
 /* This space is left intentionally to improve readability */
 
-/* This .cpp file contains the definition of Singly Linked List
+/* This .cpp file contains the definition of Singly Circular Linked List
    We have made this class generic by using 'template' keyword
    having 'X' as a placeholder for the datatype */
 
@@ -9,7 +9,7 @@
 using namespace std;
 
 template <class X>
-class LinkedList {
+class SinglyCircularLinkedList {
 
 private:
 
@@ -20,8 +20,8 @@ private:
 		Node* next;
 
 		Node(X val = 0, Node * ptr = NULL) {
-		this->info = val;
-		this->next = ptr;
+			this->info = val;
+			this->next = ptr;
 		}
 	};
 
@@ -33,10 +33,10 @@ private:
 public:
 
 	// Construction defition starts here
-		LinkedList() {
-			head = tail = NULL;
-			len = 0;
-		}
+	SinglyCircularLinkedList() {
+		head = tail = NULL;
+		len = 0;
+	}
 
 	// Member function's definition starts here
 
@@ -57,16 +57,21 @@ public:
 
 		if (head == NULL) {
 			head = tail = newNode;
+			tail->next = head;
 		}
 		else {
 			tail->next = newNode;
 			tail = newNode;
+			tail->next = head;
 		}
 	}
 
 	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
-		if (index >= 0 && index <= len) {
+		if (index == len)		// in case user enters the end index
+			addNodeEnd(val);
+
+		else if (index >= 0 && index < len) {
 
 			Node* current = head, * prev = NULL;
 
@@ -78,6 +83,7 @@ public:
 			Node* newNode = new Node(val, current);
 			if (!prev) {
 				head = newNode;
+				tail->next = head;
 			}
 			else {
 				prev->next = newNode;
@@ -99,6 +105,7 @@ public:
 		else if (head->info == val) {
 			ptr = head;
 			head = head->next;
+			tail->next = head;
 			delete ptr;
 			len--;
 		}
@@ -123,7 +130,10 @@ public:
 
 	void deleteNodeAt(int index = len - 1) {			// Delete at index
 
-		if (index >= 0 && index < len) {
+		if (index == 0)
+			deleteFirstNode();
+
+		else if (index >= 0 && index < len) {
 			Node* current = head, * prev = NULL;
 
 			for (int i = 0; i < index; i++) {
@@ -131,7 +141,7 @@ public:
 				current = current->next;
 			}
 			prev->next = current->next;
-			if (!current->next) {			// Adjusting tail
+			if (current == tail) {			// Adjusting tail
 				tail = prev;
 			}
 			delete current;
@@ -147,11 +157,15 @@ public:
 		Node* ptr;
 		if (!isEmpty()) {
 			ptr = head;
-			head = head->next;
-			if (!head) {			// If there is only 1 node in the list
-				tail = head;
+			if (len == 1) {			// If there is only 1 node in the list
+				delete ptr;
+				head = tail = NULL;
 			}
-			delete ptr;
+			else {
+				head = head->next;
+				tail->next = head;
+				delete ptr;
+			}
 			len--;
 		}
 		else {
@@ -164,10 +178,10 @@ public:
 		Node* ptr = head;
 
 		if (!isEmpty()) {
-			while (ptr) {
+			do {
 				cout << ptr->info << " ";
 				ptr = ptr->next;
-			}
+			} while (ptr != head);
 			cout << endl;
 		}
 		else {
@@ -178,12 +192,6 @@ public:
 	void searchFor(X val) {
 
 		if (!isEmpty()) {
-<<<<<<< HEAD
-
-		}
-		else {
-
-=======
 			Node* ptr = head;
 			int index = 0;
 			int flag = 0;
@@ -198,7 +206,7 @@ public:
 				}
 				ptr = ptr->next;
 				index++;
-			} while (ptr);
+			} while (ptr != head);
 
 			if (!flag) {
 				cout << "No node with such value exists" << endl;
@@ -206,7 +214,6 @@ public:
 		}
 		else {
 			cout << "List is empty." << endl;
->>>>>>> 972c80f54faf1b3dc63f341fb0dfaa9e9a4a3f47
 		}
 	}
 };

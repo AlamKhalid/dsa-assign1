@@ -1,113 +1,226 @@
-/* This space is left intentionally to improve readability */
+/* Yar in ma sara mera kaam ha excluding delete node at and inset node at wala function
+thora net se uthaya han sorry for that i am still catching up with the course 
+inshaAllah jald hi sath lag jao ga phr game on*/
 
-/* This .cpp file contains the definition of Doubly Linked List
-   We have made this class generic by using 'template' keyword
-   having 'X' as a placeholder for the datatype */
 
 #include <iostream>
 
 using namespace std;
 
-
 template <class X>
 class DoublyLinkedList {
 
 private:
-	X info;
-	DoublyLinkedList* tail;
-	DoublyLinkedList* next;
-	DoublyLinkedList* prev;
+
+	int len;
+
+	class Node {
+
+	public:
+		X info;
+		Node* next;
+		Node* prev;
+
+		Node(X val) {
+			this->info = val;
+			this->next = NULL;
+			this->prev = NULL;
+		}
+	};
+	Node* head, *tail;
 
 public:
-
 	DoublyLinkedList() {
-		this->info = 0;
-		this->next = NULL;
-		this->prev = NULL;
-		this->tail = NULL;
+		head = tail = NULL;
+		len = 0;
 	}
 
-	DoublyLinkedList(X val) {
-		this->info = val;
-		this->next = NULL;
-		this->prev = NULL;
-		this->tail= NULL;
-	}
-
-	// Member functions.
-	bool isEmpty (DoublyLinkedList* head) {
+	bool isEmpty() {
 		return head == NULL;
 	}
 
-	void addNode(X val, DoublyLinkedList* &head) {
+	int length() {
+		return this->len;
+	}
 
-		DoublyLinkedList* ptr;
-		DoublyLinkedList* newNode = new DoublyLinkedList(val);
-		
-		if (isEmpty(head)) {
-			head = newNode;
+	void addNodeStart(X val)
+	{
+		Node* temp = new Node(val);
+		len++;
+
+		if (head == NULL)
+		{
+			head = tail = temp;
 		}
-		else {
-			ptr = head;
-			while (ptr->next != NULL) {
-				ptr = ptr->next;
-			}
-			ptr->next = newNode;
-			newNode->prev = ptr;
-			tail = newNode;
+		else
+		{
+			temp->next = head;
+			temp->prev = temp;
+			head = temp;
 		}
 	}
 
-	void displayList(DoublyLinkedList* head) {
+	void addNodeEnd(X val)
+	{
+		Node* temp = new Node(val);
+		len++;
 
-		DoublyLinkedList* ptr;
-		if (isEmpty(head)) {
-			cout << "The list is empty there is nothing to show." << endl;
+		if (head == NULL)
+		{
+			head = tail = temp;
 		}
-		else {
-			ptr = head;
-			while (ptr) {
+		else
+		{
+			tail->next = temp;
+			temp->prev = tail;
+			tail = temp;
+		}
+	}
 
-				cout << ptr->info << endl;
-				ptr = ptr->next;
+	void addNodeAt(X val, int index) // add at given index
+	{
+		Node* temp;
+		int i;
+
+		if (tail == NULL)
+		{
+			cout << "List is Empty!" << endl;
+		}
+		else
+		{
+			temp = head;
+			i = 1;
+			i = 1;
+			while (i < index - 1 && temp != NULL)
+			{
+				temp = temp->next;
+				i++;
 			}
-		}
-		//Reverse
-		DoublyLinkedList* rptr;
-		cout << "Printing the linked list in reverse order." << endl;
-		if (tail == NULL) {
-			cout << "The list is empty there is nothing to show" << endl;
-		}
-		else {
-			rptr = this->tail;
-			while (rptr) {
-				cout << rptr->info<< endl;
-				rptr = rptr->prev;
+			if (index == 1)
+			{
+				addNodeStart(val);
+			}
+			else if (temp == tail)
+			{
+				addNodeEnd(val);
+			}
+			else if (temp != NULL)
+			{
+				Node *newnode = new Node(val); // i dont know what this means
+				
+				         
+				newnode->next = temp->next;         
+				newnode->prev = temp;
+
+				if (temp->next != NULL)
+				{
+					temp->next->prev = newnode; 
+				}
+				temp->next = newnode;
+			}
+			else
+			{
+				cout << "Invalid index." << endl;
 			}
 		}
 	}
 
-	void deleteNode(X val, DoublyLinkedList* &head) {
-		DoublyLinkedList* ptr , *delNode;
+	void deleteFirst()
+	{
+		if (head == NULL) // no node exists
+		{
+			cout << "List is Empty!" << endl;
+		}
+		else
+		{
+			if (head == tail) // if single node exists
+			{
+				head = tail = NULL;
+				len--;
+			}
+			else
+			{
+				Node* temp = head;
+				head = head->next;
+				head->prev = NULL;
+				delete temp;
+				len--;
+			}
+		}
+	}
 
-		if (isEmpty(head)) {
-			cout << "The list is empty." << endl;
+	void deleteLast()
+	{
+		if (head == NULL) // no node exists
+		{
+			cout << "List is Empty!" << endl;
 		}
-		else if (head->info==val) {
-			ptr = head;
-			head = head->next;
-			delete ptr;
+		else
+		{
+			if (head == tail) // if single node exists
+			{
+				head = tail = NULL;
+				len--;
+			}
+			else
+			{
+				Node* temp = tail;
+				tail = tail->prev;
+				delete temp;
+				tail->next = NULL;
+				len--;
+			}
 		}
-		else if (head->info != val) {
-			ptr = head;
-			while (ptr->next->info != val) {
+	}
+
+	// ye wala thora chapa ha sorry
+ void deleteNodeAt(int index = len - 1) // by index 
+	{
+		Node* current = head;
+		int i;
+
+		for (i = 0; i < index && current != NULL; i++)
+		{
+			current = current->next;
+		}
+
+		if (index == 1)
+		{
+			deleteFirst();
+		}
+		else if (current == tail)
+		{
+			deleteLast();
+		}
+		else if (current != NULL)
+		{
+			current->prev->next = current->next;
+			current->next->prev = current->prev;
+			delete current;
+			len--;
+		}
+		else
+		{
+			cout << "Invalid index." << endl;
+		}
+	}
+
+	void displayList()
+	{
+		Node* ptr = head;
+
+		if (head == NULL)
+		{
+			cout << "List is Empty!" << endl;
+		}
+		else
+		{
+			while (ptr != NULL)
+			{
+				cout << ptr->info << " ";
 				ptr = ptr->next;
 			}
-			
-			delNode = ptr->next;
-			ptr->next->next->prev = ptr;
-			ptr->next = ptr->next->next;
-			delete delNode;
+			cout << endl;
 		}
 	}
 };

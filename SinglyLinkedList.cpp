@@ -9,7 +9,7 @@
 using namespace std;
 
 template <class X>
-class LinkedList {
+class SinglyLinkedList {
 
 private:
 
@@ -33,7 +33,7 @@ private:
 public:
 
 	// Construction defition starts here
-		LinkedList() {
+		SinglyLinkedList() {
 			head = tail = NULL;
 			len = 0;
 		}
@@ -178,12 +178,6 @@ public:
 	void searchFor(X val) {
 
 		if (!isEmpty()) {
-<<<<<<< HEAD
-
-		}
-		else {
-
-=======
 			Node* ptr = head;
 			int index = 0;
 			int flag = 0;
@@ -206,7 +200,6 @@ public:
 		}
 		else {
 			cout << "List is empty." << endl;
->>>>>>> 972c80f54faf1b3dc63f341fb0dfaa9e9a4a3f47
 		}
 	}
 };
