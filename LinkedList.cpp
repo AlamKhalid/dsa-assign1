@@ -174,4 +174,14 @@ public:
 			cout << "The list is empty." << endl;
 		}
 	}
+
+	void searchFor(X val) {
+
+		if (!isEmpty()) {
+
+		}
+		else {
+
+		}
+	}
 };
