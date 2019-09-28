@@ -70,13 +70,17 @@ public:
 
 			Node* current = head, * prev = NULL;
 
+
 			for (int i = 0; i < index; i++) {
 				prev = current;
 				current = current->next;
 			}
 
 			Node* newNode = new Node(val, current);
-			if (!prev) {
+			if (head == NULL) {
+				head = tail = newNode;
+			}
+			else if (!prev) {
 				head = newNode;
 			}
 			else {

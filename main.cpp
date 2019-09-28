@@ -13,6 +13,7 @@ int main() {
 	list.addNode(5);
 	list.addNode(66);
 	list.addNode(88);
+<<<<<<< HEAD
 	list.displayList();
 	list.deleteFirstNode();
 	list.displayList();
@@ -31,3 +32,23 @@ int main() {
 	list.searchFor(22);
 
 }
+=======
+	list.displayList();
+	list.deleteFirstNode();
+	list.displayList();
+	list.deleteNode(66);
+	list.displayList();
+	list.addNode(7);
+	list.addNode(99);
+	list.displayList();
+	list.addNodeEnd(55);
+	list.addNode(22);
+	list.displayList();
+	list.deleteNode(7);
+	list.deleteNodeAt(4);
+	list.displayList();
+	cout << list.isEmpty() << endl;
+	cout << list.length() << endl;
+	list.searchFor(22);
+}
+>>>>>>> 10173f8498e2e9a4f7c4c6908e71cdc38b8da1d2
