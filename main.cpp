@@ -1,3 +1,9 @@
+/* This space is left intentionally to improve readability */
+
+/* This .cpp file contains the definition of main
+We have made this class generic by using 'template' keyword
+having 'X' as a placeholder for the datatype */
+
 #include<iostream>
 #include<string>
 #include "SinglyCircularLinkedList.cpp"

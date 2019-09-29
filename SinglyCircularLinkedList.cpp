@@ -1,33 +1,34 @@
 /* This space is left intentionally to improve readability */
 
 /* This .cpp file contains the definition of Singly Circular Linked List
-   We have made this class generic by using 'template' keyword
-   having 'X' as a placeholder for the datatype */
+We have made this class generic by using 'template' keyword
+having 'X' as a placeholder for the datatype */
 
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
 template <class X>
-class SinglyCircularLinkedList {
+class SinglyCircularLinkedList { // class starts
 
 private:
 
-	class Node {
+	class Node { // class node starts
 
 	public:
-		X info;
-		Node* next;
+		X info; // data in node
+		Node* next; // pointer to next node
 
+		// constructor definition
 		Node(X val = 0, Node * ptr = NULL) {
 			this->info = val;
 			this->next = ptr;
 		}
-	};
+	}; // end class
 
-	int len;
+	int len; // length of list
 
-	Node* head;
+	Node* head; // pointers to head and tail
 	Node* tail;
 
 public:
@@ -48,42 +49,44 @@ public:
 		return this->len;
 	}
 
+	// add node function at end
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
 		Node* ptr;
 
-		len++;
+		len++; // lenght incremented
 
-		if (head == NULL) {
+		if (head == NULL) { // add at start
 			head = tail = newNode;
 			tail->next = head;
 		}
-		else {
+		else { // add at end
 			tail->next = newNode;
 			tail = newNode;
 			tail->next = head;
 		}
-	}
+	} // end function
 
-	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
+	// this add the node at given index, by default inserts at the start
+	void addNode(X val, int index = 0) {
 
 		if (index == len)		// in case user enters the end index
 			addNodeEnd(val);
 
-		else if (index >= 0 && index < len) {
+		else if (index >= 0 && index < len) { 
 
 			Node* current = head, * prev = NULL;
 
-			for (int i = 0; i < index; i++) {
+			for (int i = 0; i < index; i++) { 
 				prev = current;
-				current = current->next;
+				current = current->next; // pointer to next node
 			}
 
 			Node* newNode = new Node(val, current);
-			if (head == NULL) {
+			if (head == NULL) { // if no node
 				head = tail = newNode;
-				tail->next = head;
+				tail->next = head; // tail points to head for circular
 			}
 			else if (!prev) {
 				head = newNode;
@@ -92,51 +95,52 @@ public:
 			else {
 				prev->next = newNode;
 			}
-			len++;
+			len++; // length increment
 		}
 		else {
 			cout << "Invalid index. Please try again." << endl;
 		}
-	}
+	} // end function
 
-	void deleteNode(X val) {		// Delete by value
+	// this function deletes the node by value
+	void deleteNode(X val) {
 
 		Node* ptr, * delNode;
 
-		if (isEmpty()) {
+		if (isEmpty()) { // no node present
 			cout << "Delete operation cannot be done. List is empty." << endl;
 		}
-		else if (head->info == val) {
+		else if (head->info == val) { // if value present
 			ptr = head;
 			head = head->next;
 			tail->next = head;
 			delete ptr;
-			len--;
+			len--; //decrement length
 		}
 		else {
 			ptr = head;
 			int i = 0;
-			while (ptr->next->info != val && i < len - 1) {		// some masla
+			while (ptr->next->info != val && i < len - 1) {	// searches for given value
 				ptr = ptr->next;
 				i++;
 			}
 			if (i != len - 1) {
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
-				delete delNode;
+				delete delNode; // deletes the node
 				len--;
 			}
 			else {
 				cout << "Value does not exist." << endl;
 			}
 		}
-	}
+	} // end function
 
-	void deleteNodeAt(int index = len - 1) {			// Delete at index
+	// this deletes the node by given index
+	void deleteNodeAt(int index = len - 1) {		
 
-		if (index == 0)
+		if (index == 0) // if index is 1 
 			deleteFirstNode();
-
 
 		else if (index >= 0 && index < len) {
 			if (!isEmpty()) {
@@ -151,7 +155,7 @@ public:
 					tail = prev;
 				}
 				delete current;
-				len--;
+				len--; // decrement length
 			}
 			else {
 				cout << "Invalid index." << endl;
@@ -160,8 +164,9 @@ public:
 		else {
 			cout << "List is empty." << endl;
 		}
-	}
+	} // end function
 
+	// this function deletes first node
 	void deleteFirstNode() {
 
 		Node* ptr;
@@ -171,7 +176,7 @@ public:
 				delete ptr;
 				head = tail = NULL;
 			}
-			else {
+			else { // if multiple nodes
 				head = head->next;
 				tail->next = head;
 				delete ptr;
@@ -181,15 +186,16 @@ public:
 		else {
 			cout << "List is empty." << endl;
 		}
-	}
+	} // end function
 
+	// this function displays the list elements
 	void displayList() {
 
 		Node* ptr = head;
 
 		if (!isEmpty()) {
 			do {
-				cout << ptr->info << " ";
+				cout << ptr->info << " "; // prompt for output
 				ptr = ptr->next;
 			} while (ptr != head);
 			cout << endl;
@@ -197,22 +203,23 @@ public:
 		else {
 			cout << "The list is empty." << endl;
 		}
-	}
+	} // end function
 
+	// searches for given value and returns the index of given values
 	void searchFor(X val) {
 
-		if (!isEmpty()) {
+		if (!isEmpty()) { 
 			Node* ptr = head;
 			int index = 0;
-			int flag = 0;
+			int flag = 0; // flag set to false when found will be true
 
 			do {
-				if (ptr->info == val) {
+				if (ptr->info == val) { // if value exists in list
 					if (!flag) {
 						cout << "Found at following indicies:\n";
 					}
 					cout << "Index: " << index << endl;
-					flag = 1;
+					flag = 1; // flag true
 				}
 				ptr = ptr->next;
 				index++;
@@ -225,5 +232,5 @@ public:
 		else {
 			cout << "List is empty." << endl;
 		}
-	}
-};
+	} // end function
+}; // end class SinglyCircularLinkedList

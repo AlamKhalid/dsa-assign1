@@ -1,40 +1,45 @@
+/* This space is left intentionally to improve readability */
 
-
+/* This .cpp file contains the definition of Doubly Linked List
+We have made this class generic by using 'template' keyword
+having 'X' as a placeholder for the datatype */
 
 #include <iostream>
 
 using namespace std;
 
 template <class X>
-class DoublyLinkedList {
+class DoublyLinkedList { 
 
 private:
 
-	int len;
+	int len; // list length 
 
-	class Node {
+	class Node { // class begins
 
 	public:
-		X info;
-		Node* next;
-		Node* prev;
+		X info; // data in node
+		Node* next; // pointer to next node
+		Node* prev; // pointer to previous node
 
-		Node(X val = 0, Node* next = NULL , Node* prev = NULL) {
+		Node(X val = 0, Node* next = NULL , Node* prev = NULL) { // node constructor
 			this->info = val;
 			this->next = next;
 			this->prev = prev;
-		}
-	};
+		} // constructor ends
+	}; // class node ends
 
-	Node* head, *tail;
+	Node* head, *tail; // pointers to head and tail of node 
 
 public:
 
+	// constructor definition begins here
 	DoublyLinkedList() {
 		head = tail = NULL;
 		len = 0;
 	}
 
+	// member function definition starts 
 	bool isEmpty() {
 		return head == NULL;
 	}
@@ -43,12 +48,13 @@ public:
 		return this->len;
 	}
 
+	// this function adds node with provided value at the start
 	void addNodeStart(X val)
 	{
-		Node* temp = new Node(val);
+		Node* temp = new Node(val); 
 		len++;
 
-		if (head == NULL)
+		if (head == NULL) // no node in list
 		{
 			head = tail = temp;
 		}
@@ -57,14 +63,15 @@ public:
 			temp->next = head;
 			head = temp;
 		}
-	}
+	} // end funtion
 
+	// this function adds node at the end
 	void addNodeEnd(X val)
 	{
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL)
+		if (head == NULL) // no node present
 		{
 			head = tail = temp;
 		}
@@ -74,38 +81,38 @@ public:
 			temp->prev = tail;
 			tail = temp;
 		}
-	}
+	} // end function 
 
-	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
+	  // By default, it inserts the node at the start
+	void addNode(X val, int index = 0) {		
 
-		if (index == len)
+		if (index == len) // add at end
 			addNodeEnd(val);
 
-		else if (index == 0)
+		else if (index == 0) // add at start
 			addNodeStart(val);
 
-		else if (index > 0 && index < len) {
+		else if (index > 0 && index < len) { // add in between
 
 			Node* current = head, * prev = NULL;
-
 
 			for (int i = 0; i < index; i++) {
 				prev = current;
 				current = current->next;
-
 			}
 
 			Node* newNode = new Node(val, current, prev);
 
 			current->prev = newNode;
 			prev->next = newNode;
-			len++;
+			len++; // increment length
 		}
-		else {
+		else { // if given index is not a valid
 			cout << "Invalid index. Please try again." << endl;
 		}
-	}
+	} // end function
 
+	// this function deletes first node
 	void deleteFirst()
 	{
 		if (isEmpty()) // no node exists
@@ -116,11 +123,11 @@ public:
 		{
 			if (head == tail) // if single node exists
 			{
-				delete head;
+				delete head; 
 				head = tail = NULL;
-				len--;
+				len--; // decrement length
 			}
-			else
+			else // if multiple nodes are present
 			{
 				Node* temp = head;
 				head = head->next;
@@ -129,8 +136,9 @@ public:
 				len--;
 			}
 		}
-	}
+	} // end function
 
+	// this function deletes the last node
 	void deleteLast() {
 
 		if (isEmpty()) // no node exists
@@ -151,20 +159,21 @@ public:
 				tail = tail->prev;
 				delete temp;
 				tail->next = NULL;
-				len--;
+				len--; // decrement length
 			}
 		}
-	}
+	} // end function 
 
-	void deleteNodeAt(int index = len - 1)	{	// delete by index 
+	// this function deleted node at provided index
+	void deleteNodeAt(int index = len - 1)	{ 
 		
-		if (index == 0)
+		if (index == 0) // if index is 1 deelte first node
 			deleteFirst();
 
-		else if (index == len - 1)
+		else if (index == len - 1) // last node deleted
 			deleteLast();
 
-		else if (index > 0 && index < len - 1) {
+		else if (index > 0 && index < len - 1) { 
 			if (!isEmpty()) {
 				Node* current = head, * prev = NULL;
 
@@ -173,11 +182,11 @@ public:
 					current = current->next;
 				}
 
-				prev->next = current->next;
+				prev->next = current->next; // adjusting other pointers
 				current->next->prev = prev;
 
-				delete current;
-				len--;
+				delete current; // delete current 
+				len--; // decerement length
 			}
 			else {
 				cout << "Invalid index." << endl;
@@ -185,9 +194,10 @@ public:
 		}
 		else
 			cout << "List is empty." << endl;
-	}
+	} // end function
 
-	void deleteNode(X val) {		// Delete by value
+	// this function deletes the node which contains the provided value
+	void deleteNode(X val) {
 
 		Node* ptr, * delNode;
 
@@ -200,15 +210,15 @@ public:
 		else if (tail->info == val) {
 			deleteLast();
 		}
-		else {
+		else { // if value is somewhere in middle
 			ptr = head;
 			int i = 0;
 
-			while (ptr->next->info != val && i < len - 1) {
+			while (ptr->next->info != val && i < len - 1) { // finding the index of node where value is present
 				ptr = ptr->next;
 				i++;
 			}
-			if (i != len - 1) {
+			if (i != len - 1) { // deletes node if value found
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delNode->next->prev = delNode->prev;
@@ -219,27 +229,29 @@ public:
 				cout << "Value does not exist." << endl;
 			}
 		}
-	}
+	} // end function
 
+	// this function displays the list
 	void displayList()
 	{
 		Node* ptr = head;
 
 		if (isEmpty())
 		{
-			cout << "List is Empty!" << endl;
+			cout << "List is Empty!" << endl; // prompt for output
 		}
 		else
 		{
 			while (ptr)
 			{
-				cout << ptr->info << " ";
+				cout << ptr->info << " "; // prompt for output
 				ptr = ptr->next;
 			}
 			cout << endl;
 		}
-	}
+	} // end function
 
+	// this function searches for index of the given values
 	void searchFor(X val) {
 
 		if (!isEmpty()) {
@@ -248,23 +260,23 @@ public:
 			int flag = 0;
 
 			do {
-				if (ptr->info == val) {
-					if (!flag) {
+				if (ptr->info == val) { // if value is present
+					if (!flag) { 
 						cout << "Found at following indicies:\n";
 					}
 					cout << "Index: " << index << endl;
-					flag = 1;
+					flag = 1; // set flag to true
 				}
 				ptr = ptr->next;
 				index++;
 			} while (ptr);
 
-			if (!flag) {
+			if (!flag) { // value not found
 				cout << "No node with such value exists" << endl;
 			}
 		}
-		else {
+		else { 
 			cout << "List is empty." << endl;
 		}
-	}
-};
+	} // end function
+}; // end class DoublyLinkedList

@@ -4,35 +4,38 @@
    We have made this class generic by using 'template' keyword
    having 'X' as a placeholder for the datatype */
 
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
-template <class X>
-class SinglyLinkedList {
+template <class X> 
+class SinglyLinkedList { // class singlylinkedlist starts
 
 private:
 
-	class Node {
+	// class node starts
+
+	class Node { 
 
 	public:
-		X info;
-		Node* next;
+		X info; // data in node
+		Node* next; // pointer to next node
 
-		Node(X val = 0, Node * ptr = NULL) {
+		Node(X val = 0, Node * ptr = NULL) { // constructor for node
 		this->info = val;
 		this->next = ptr;
 		}
-	};
+	}; // class node ends
 
-	int len;
+	int len; // length of node variable
 
-	Node* head;
-	Node* tail;
+	Node* head; // pointer to head
+	Node* tail; // pointer to tail
 
 public:
 
-	// Construction defition starts here
+	// Constructor defition starts here
+
 		SinglyLinkedList() {
 			head = tail = NULL;
 			len = 0;
@@ -48,28 +51,29 @@ public:
 		return this->len;
 	}
 
+	// thid function add node with the provided value at the end of the linked list
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
 		
+		len++; // length increases as new node is added
 
-		len++;
-
-		if (head == NULL) {
+		if (head == NULL) { // if no node is present
 			head = tail = newNode;
 		}
-		else {
+		else { // if there are any nodes
 			tail->next = newNode;
 			tail = newNode;
 		}
 	}
 
+	// this function add node with the respective value at the given index
 	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
-		if (index == len)
+		if (index == len) // adds node at end because index is same as len i.e the number of nodes already present
 			addNodeEnd(val);
 
-		else if (index >= 0 && index < len) {
+		else if (index >= 0 && index < len) { // adds somwhere in between
 
 			Node* current = head, * prev = NULL;
 
@@ -80,7 +84,7 @@ public:
 			}
 
 			Node* newNode = new Node(val, current);
-			if (head == NULL) {
+			if (head == NULL) { // if no node present
 				head = tail = newNode;
 			}
 			else if (!prev) {
@@ -94,41 +98,42 @@ public:
 		else {
 			cout << "Invalid index. Please try again." << endl;
 		}
-	}
+	} // function addNode ends
 
-	void deleteNode(X val) {		// Delete by value
+	// deletes the node which has same value as the value provided
+	void deleteNode(X val) {		// Delete node by value
 
 		Node* ptr, * delNode;
 
-		if (isEmpty()) {
+		if (isEmpty()) { // if list is empty 
 			cout << "Delete operation cannot be done. List is empty." << endl;
 		}
-		else if (head->info == val) {
+		else if (head->info == val) { // if the provided value is present at the first node
 			ptr = head;
 			head = head->next;
 			delete ptr;
-			len--;
+			len--; // decrement length because node is demolished
 		}
-		else {
+		else { // if value is in between somwhere
 			ptr = head;
 			int i = 0;
-			while (ptr->next->info != val && i < len - 1) {
+			while (ptr->next->info != val && i < len - 1) { // finds the node where the value is present
 				ptr = ptr->next;
 				i++;
 			}
-			if (i != len - 1) {
+			if (i != len - 1) { // delete the node where value is found
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delete delNode;
 				len--;
 			}
-			else {
+			else { // value is not in the list
 				cout << "Value does not exist." << endl;
 			}
 		}
-	}
+	} // end function delete by value
 
-	void deleteNodeAt(int index = len - 1) {			// Delete at index
+	void deleteNodeAt(int index = len - 1) {			// Delete node by the respective index 
 
 		if (!isEmpty()) {
 			if (index >= 0 && index < len) {
@@ -136,14 +141,14 @@ public:
 
 				for (int i = 0; i < index; i++) {
 					prev = current;
-					current = current->next;
+					current = current->next; // stores the node in current that is to be deleted
 				}
 				prev->next = current->next;
 				if (!current->next) {			// Adjusting tail
 					tail = prev;
 				}
-				delete current;
-				len--;
+				delete current; // delete the node
+				len--; // decrement length
 			}
 			else {
 				cout << "Invalid index." << endl;
@@ -151,9 +156,9 @@ public:
 		}
 		else
 			cout << "List is empty." << endl;
-	}
+	} // function ends
 
-	void deleteFirstNode() {
+	void deleteFirstNode() { // delete first node 
 
 		Node* ptr;
 		if (!isEmpty()) {
@@ -165,30 +170,30 @@ public:
 			delete ptr;
 			len--;
 		}
-		else {
+		else { // list is empty
 			cout << "List is empty." << endl;
 		}
-	}
+	} // end function
 
-	void displayList() {
+	void displayList() { // this function displays all the data of the nodes
 
 		Node* ptr = head;
 
 		if (!isEmpty()) {
 			while (ptr) {
-				cout << ptr->info << " ";
-				ptr = ptr->next;
+				cout << ptr->info << " "; // prompt for output
+				ptr = ptr->next; // ptr points to next node now
 			}
 			cout << endl;
 		}
 		else {
 			cout << "The list is empty." << endl;
 		}
-	}
+	} // end function
 
-	void searchFor(X val) {
+	void searchFor(X val) { // this function search for the given value and display the index at which it is found
 
-		if (!isEmpty()) {
+		if (!isEmpty()) { 
 			Node* ptr = head;
 			int index = 0;
 			int flag = 0;
@@ -196,10 +201,10 @@ public:
 			do {
 				if (ptr->info == val) {
 					if (!flag) {
-						cout << "Found at following indicies:\n";
+						cout << "Found at following indicies:\n"; // prompt for output
 					}
 					cout << "Index: " << index << endl;
-					flag = 1;
+					flag = 1; // flag true / 1 now i.e number found
 				}
 				ptr = ptr->next;
 				index++;
@@ -212,5 +217,5 @@ public:
 		else {
 			cout << "List is empty." << endl;
 		}
-	}
-};
+	} // end function 
+}; // end class singly linked list
