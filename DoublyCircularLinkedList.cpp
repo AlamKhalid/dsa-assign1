@@ -57,7 +57,6 @@ public:
 			temp->prev = tail;
 			head = temp;
 			tail->next = head;
-			
 		}
 	}
 
@@ -82,54 +81,6 @@ public:
 		}
 	}
 
-
-	void addNodeAt(X val, int index) // add at given index
-	{
-		Node* temp;
-		int i;
-
-		if (tail == NULL)
-		{
-			cout << "List is Empty!" << endl;
-		}
-		else
-		{
-			temp = head;
-			i = 1;
-			i = 1;
-			while (i < index - 1 && temp != NULL)
-			{
-				temp = temp->next;
-				i++;
-			}
-			if (index == 1)
-			{
-				addNodeStart(val);
-			}
-			else if (temp == tail)
-			{
-				addNodeEnd(val);
-			}
-			else if (temp != NULL)
-			{
-				Node* newnode = new Node(val); 
-
-
-				newnode->next = temp->next;
-				newnode->prev = temp;
-
-				if (temp->next != NULL)
-				{
-					temp->next->prev = newnode;
-				}
-				temp->next = newnode;
-			}
-			else
-			{
-				cout << "Invalid index." << endl;
-			}
-		}
-	}
 	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
 		if (index == len)
@@ -312,7 +263,7 @@ public:
 				}
 				ptr = ptr->next;
 				index++;
-			} while (ptr);
+			} while (ptr != head);
 
 			if (!flag) {
 				cout << "No node with such value exists" << endl;

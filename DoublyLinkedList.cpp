@@ -1,6 +1,4 @@
-/* Yar in ma sara mera kaam ha excluding delete node at and inset node at wala function
-thora net se uthaya han sorry for that i am still catching up with the course 
-inshaAllah jald hi sath lag jao ga phr game on*/
+
 
 
 #include <iostream>
@@ -75,55 +73,6 @@ public:
 			tail->next = temp;
 			temp->prev = tail;
 			tail = temp;
-		}
-	}
-
-
-	void addNodeAt(X val, int index) // add at given index
-	{
-		Node* temp;
-		int i;
-
-		if (tail == NULL)
-		{
-			cout << "List is Empty!" << endl;
-		}
-		else
-		{
-			temp = head;
-			i = 1;
-			i = 1;
-			while (i < index - 1 && temp != NULL)
-			{
-				temp = temp->next;
-				i++;
-			}
-			if (index == 1)
-			{
-				addNodeStart(val);
-			}
-			else if (temp == tail)
-			{
-				addNodeEnd(val);
-			}
-			else if (temp != NULL)
-			{
-				Node* newnode = new Node(val); // i dont know what this means
-
-
-				newnode->next = temp->next;
-				newnode->prev = temp;
-
-				if (temp->next != NULL)
-				{
-					temp->next->prev = newnode;
-				}
-				temp->next = newnode;
-			}
-			else
-			{
-				cout << "Invalid index." << endl;
-			}
 		}
 	}
 
