@@ -3,7 +3,7 @@
 
 
 #include "SinglyLinkedList.cpp"
-//#include "DoublyLinkedList.cpp"
+#include "DoublyLinkedList.cpp"
 using namespace std;
 
 int main() {

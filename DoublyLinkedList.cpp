@@ -21,15 +21,17 @@ private:
 		Node* next;
 		Node* prev;
 
-		Node(X val) {
+		Node(X val = 0, Node* next = NULL , Node* prev = NULL) {
 			this->info = val;
-			this->next = NULL;
-			this->prev = NULL;
+			this->next = next;
+			this->prev = prev;
 		}
 	};
+
 	Node* head, *tail;
 
 public:
+
 	DoublyLinkedList() {
 		head = tail = NULL;
 		len = 0;
@@ -55,7 +57,6 @@ public:
 		else
 		{
 			temp->next = head;
-			temp->prev = temp;
 			head = temp;
 		}
 	}
@@ -77,57 +78,38 @@ public:
 		}
 	}
 
-	void addNodeAt(X val, int index) // add at given index
-	{
-		Node* newNode, *temp;
-		int i;
+	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
-		if (tail == NULL)
-		{
-			cout << "List is Empty!" << endl;
+		if (index == len)
+			addNodeEnd(val);
+
+		else if (index == 0)
+			addNodeStart(val);
+
+		else if (index > 0 && index < len) {
+
+			Node* current = head, * prev = NULL;
+
+
+			for (int i = 0; i < index; i++) {
+				prev = current;
+				current = current->next;
+			}
+
+			Node* newNode = new Node(val, current, prev);
+
+			current->prev = newNode;
+			prev->next = newNode;
+			len++;
 		}
-		else
-		{
-			temp = head;
-			i = 1;
-			i = 1;
-			while (i < index - 1 && temp != NULL)
-			{
-				temp = temp->next;
-				i++;
-			}
-			if (index == 1)
-			{
-				addNodeStart(val);
-			}
-			else if (temp == tail)
-			{
-				addNodeEnd(val);
-			}
-			else if (temp != NULL)
-			{
-				newnode = (Node *)malloc(sizeof(Node)); // i dont know what this means
-				newnode->info = val;
-				         
-				newnode->next = temp->next;         
-				newnode->prev = temp;
-
-				if (temp->next != NULL)
-				{
-					temp->next->prev = newnode; 
-				}
-				temp->next = newnode;
-			}
-			else
-			{
-				cout << "Invalid index." << endl;
-			}
+		else {
+			cout << "Invalid index. Please try again." << endl;
 		}
 	}
 
 	void deleteFirst()
 	{
-		if (head == NULL) // no node exists
+		if (isEmpty()) // no node exists
 		{
 			cout << "List is Empty!" << endl;
 		}
@@ -135,6 +117,7 @@ public:
 		{
 			if (head == tail) // if single node exists
 			{
+				delete head;
 				head = tail = NULL;
 				len--;
 			}
@@ -149,9 +132,9 @@ public:
 		}
 	}
 
-	void deleteLast()
-	{
-		if (head == NULL) // no node exists
+	void deleteLast() {
+
+		if (isEmpty()) // no node exists
 		{
 			cout << "List is Empty!" << endl;
 		}
@@ -159,6 +142,7 @@ public:
 		{
 			if (head == tail) // if single node exists
 			{
+				delete head;
 				head = tail = NULL;
 				len--;
 			}
@@ -173,35 +157,68 @@ public:
 		}
 	}
 
-	// ye wala thora chapa ha sorry
- void deleteNodeAt(int index = len - 1) // by index 
-	{
-		Node* current = head;
-		int i;
-
-		for (i = 0; i < index && current != NULL; i++)
-		{
-			current = current->next;
-		}
-
-		if (index == 1)
-		{
+	void deleteNodeAt(int index = len - 1)	{	// delete by index 
+		
+		if (index == 0)
 			deleteFirst();
-		}
-		else if (current == tail)
-		{
+
+		else if (index == len - 1)
 			deleteLast();
-		}
-		else if (current != NULL)
-		{
-			current->prev->next = current->next;
-			current->next->prev = current->prev;
-			delete current;
-			len--;
+
+		else if (index > 0 && index < len - 1) {
+			if (!isEmpty()) {
+				Node* current = head, * prev = NULL;
+
+				for (int i = 0; i < index; i++) {
+					prev = current;
+					current = current->next;
+				}
+
+				prev->next = current->next;
+				current->next->prev = prev;
+
+				delete current;
+				len--;
+			}
+			else {
+				cout << "Invalid index." << endl;
+			}
 		}
 		else
-		{
-			cout << "Invalid index." << endl;
+			cout << "List is empty." << endl;
+	}
+
+	void deleteNode(X val) {		// Delete by value
+
+		Node* ptr, * delNode;
+
+		if (isEmpty()) {
+			cout << "Delete operation cannot be done. List is empty." << endl;
+		}
+		else if (head->info == val) {
+			deleteFirst();
+		}
+		else if (tail->info == val) {
+			deleteLast();
+		}
+		else {
+			ptr = head;
+			int i = 0;
+
+			while (ptr->next->info != val && i < len - 1) {
+				ptr = ptr->next;
+				i++;
+			}
+			if (i != len - 1) {
+				delNode = ptr->next;
+				ptr->next = ptr->next->next;
+				delNode->next->prev = delNode->prev;
+				delete delNode;
+				len--;
+			}
+			else {
+				cout << "Value does not exist." << endl;
+			}
 		}
 	}
 
@@ -209,18 +226,46 @@ public:
 	{
 		Node* ptr = head;
 
-		if (head == NULL)
+		if (isEmpty())
 		{
 			cout << "List is Empty!" << endl;
 		}
 		else
 		{
-			while (ptr != NULL)
+			while (ptr)
 			{
 				cout << ptr->info << " ";
 				ptr = ptr->next;
 			}
 			cout << endl;
+		}
+	}
+
+	void searchFor(X val) {
+
+		if (!isEmpty()) {
+			Node* ptr = head;
+			int index = 0;
+			int flag = 0;
+
+			do {
+				if (ptr->info == val) {
+					if (!flag) {
+						cout << "Found at following indicies:\n";
+					}
+					cout << "Index: " << index << endl;
+					flag = 1;
+				}
+				ptr = ptr->next;
+				index++;
+			} while (ptr);
+
+			if (!flag) {
+				cout << "No node with such value exists" << endl;
+			}
+		}
+		else {
+			cout << "List is empty." << endl;
 		}
 	}
 };

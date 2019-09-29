@@ -137,22 +137,28 @@ public:
 		if (index == 0)
 			deleteFirstNode();
 
-		else if (index >= 0 && index < len) {
-			Node* current = head, * prev = NULL;
 
-			for (int i = 0; i < index; i++) {
-				prev = current;
-				current = current->next;
+		else if (index >= 0 && index < len) {
+			if (!isEmpty()) {
+				Node* current = head, * prev = NULL;
+
+				for (int i = 0; i < index; i++) {
+					prev = current;
+					current = current->next;
+				}
+				prev->next = current->next;
+				if (current == tail) {			// Adjusting tail
+					tail = prev;
+				}
+				delete current;
+				len--;
 			}
-			prev->next = current->next;
-			if (current == tail) {			// Adjusting tail
-				tail = prev;
+			else {
+				cout << "Invalid index." << endl;
 			}
-			delete current;
-			len--;
 		}
 		else {
-			cout << "Invalid index." << endl;
+			cout << "List is empty." << endl;
 		}
 	}
 
