@@ -51,7 +51,7 @@ public:
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
-		Node* ptr;
+		
 
 		len++;
 
@@ -66,7 +66,10 @@ public:
 
 	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
-		if (index >= 0 && index <= len) {
+		if (index == len)
+			addNodeEnd(val);
+
+		else if (index >= 0 && index < len) {
 
 			Node* current = head, * prev = NULL;
 
@@ -109,7 +112,7 @@ public:
 		else {
 			ptr = head;
 			int i = 0;
-			while (ptr->next->info != val && i < len - 1) {		// some masla
+			while (ptr->next->info != val && i < len - 1) {
 				ptr = ptr->next;
 				i++;
 			}
@@ -127,23 +130,27 @@ public:
 
 	void deleteNodeAt(int index = len - 1) {			// Delete at index
 
-		if (index >= 0 && index < len) {
-			Node* current = head, * prev = NULL;
+		if (!isEmpty()) {
+			if (index >= 0 && index < len) {
+				Node* current = head, * prev = NULL;
 
-			for (int i = 0; i < index; i++) {
-				prev = current;
-				current = current->next;
+				for (int i = 0; i < index; i++) {
+					prev = current;
+					current = current->next;
+				}
+				prev->next = current->next;
+				if (!current->next) {			// Adjusting tail
+					tail = prev;
+				}
+				delete current;
+				len--;
 			}
-			prev->next = current->next;
-			if (!current->next) {			// Adjusting tail
-				tail = prev;
+			else {
+				cout << "Invalid index." << endl;
 			}
-			delete current;
-			len--;
 		}
-		else {
-			cout << "Invalid index." << endl;
-		}
+		else
+			cout << "List is empty." << endl;
 	}
 
 	void deleteFirstNode() {

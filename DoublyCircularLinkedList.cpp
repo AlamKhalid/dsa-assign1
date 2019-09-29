@@ -1,14 +1,9 @@
-/* Yar in ma sara mera kaam ha excluding delete node at and inset node at wala function
-thora net se uthaya han sorry for that i am still catching up with the course 
-inshaAllah jald hi sath lag jao ga phr game on*/
-
-
 #include <iostream>
 
 using namespace std;
 
 template <class X>
-class DoublyLinkedList {
+class DoublyCircularLinkedList {
 
 private:
 
@@ -32,7 +27,7 @@ private:
 
 public:
 
-	DoublyLinkedList() {
+	DoublyCircularLinkedList() {
 		head = tail = NULL;
 		len = 0;
 	}
@@ -53,11 +48,16 @@ public:
 		if (head == NULL)
 		{
 			head = tail = temp;
+			tail->next = head;
+			tail->prev = head;
 		}
 		else
 		{
 			temp->next = head;
+			temp->prev = tail;
 			head = temp;
+			tail->next = head;
+			
 		}
 	}
 
@@ -69,12 +69,16 @@ public:
 		if (head == NULL)
 		{
 			head = tail = temp;
+			tail->next = head;
+			tail->prev = head;
 		}
 		else
 		{
 			tail->next = temp;
 			temp->prev = tail;
 			tail = temp;
+			tail->next = head;
+			head->prev = tail;
 		}
 	}
 
@@ -108,7 +112,7 @@ public:
 			}
 			else if (temp != NULL)
 			{
-				Node* newnode = new Node(val); // i dont know what this means
+				Node* newnode = new Node(val); 
 
 
 				newnode->next = temp->next;
@@ -126,7 +130,6 @@ public:
 			}
 		}
 	}
-
 	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
 		if (index == len)
@@ -134,16 +137,16 @@ public:
 
 		else if (index == 0)
 			addNodeStart(val);
-
+		
+		
 		else if (index > 0 && index < len) {
 
 			Node* current = head, * prev = NULL;
 
 
-			for (int i = 0; i < index; i++) {
+			for (int i = 0; i < index-1; i++) {
 				prev = current;
 				current = current->next;
-
 			}
 
 			Node* newNode = new Node(val, current, prev);
@@ -175,7 +178,8 @@ public:
 			{
 				Node* temp = head;
 				head = head->next;
-				head->prev = NULL;
+				head->prev = tail;
+				tail->next = head;
 				delete temp;
 				len--;
 			}
@@ -201,25 +205,26 @@ public:
 				Node* temp = tail;
 				tail = tail->prev;
 				delete temp;
-				tail->next = NULL;
+				tail->next = head;
+				head->prev = tail;
 				len--;
 			}
 		}
 	}
 
-	void deleteNodeAt(int index = len - 1)	{	// delete by index 
+	void deleteNodeAt(int index =0)	{	// delete by index 
 		
 		if (index == 0)
 			deleteFirst();
 
-		else if (index == len - 1)
+		else if (index == len)
 			deleteLast();
 
-		else if (index > 0 && index < len - 1) {
+		else if (index > 0 && index < len) {
 			if (!isEmpty()) {
 				Node* current = head, * prev = NULL;
 
-				for (int i = 0; i < index; i++) {
+				for (int i = 0; i < index-1; i++) {
 					prev = current;
 					current = current->next;
 				}
@@ -282,11 +287,10 @@ public:
 		}
 		else
 		{
-			while (ptr)
-			{
+			do {
 				cout << ptr->info << " ";
 				ptr = ptr->next;
-			}
+			} while (ptr != head);
 			cout << endl;
 		}
 	}
