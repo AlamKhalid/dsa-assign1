@@ -54,7 +54,7 @@ public:
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL) // no node in list
+		if (isEmpty()) // no node in list
 		{
 			head = tail = temp;
 			tail->next = head; // adjusting tail
@@ -64,6 +64,7 @@ public:
 		{
 			temp->next = head;
 			temp->prev = tail;
+			head->prev = temp;
 			head = temp;
 			tail->next = head;
 		}
@@ -75,7 +76,7 @@ public:
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL) // no node present
+		if (isEmpty()) // no node present
 		{
 			head = tail = temp;
 			tail->next = head;
@@ -106,7 +107,7 @@ public:
 			Node* current = head, * prev = NULL;
 
 
-			for (int i = 0; i < index-1; i++) {
+			for (int i = 0; i < index; i++) {
 				prev = current;
 				current = current->next;
 			}
@@ -189,7 +190,7 @@ public:
 			if (!isEmpty()) {
 				Node* current = head, * prev = NULL;
 
-				for (int i = 0; i < index-1; i++) {
+				for (int i = 0; i < index; i++) {
 					prev = current;
 					current = current->next;
 				}
