@@ -22,7 +22,7 @@ private:
 		Node* next; // pointer to next node
 		Node* prev; // pointer to previous node
 
-		Node(X val = 0, Node* next = NULL , Node* prev = NULL) { // constructor of node
+		Node(X val = 0, Node* next = NULL, Node* prev = NULL) { // constructor of node
 			this->info = val;
 			this->next = next;
 			this->prev = prev;
@@ -54,7 +54,7 @@ public:
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL) // no node in list
+		if (isEmpty()) // no node in list
 		{
 			head = tail = temp;
 			tail->next = head; // adjusting tail
@@ -64,18 +64,19 @@ public:
 		{
 			temp->next = head;
 			temp->prev = tail;
+			head->prev = temp;
 			head = temp;
 			tail->next = head;
 		}
 	} // end funtion
 
-	// this function adds node at the end
+	  // this function adds node at the end
 	void addNodeEnd(X val)
 	{
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL) // no node present
+		if (isEmpty()) // no node present
 		{
 			head = tail = temp;
 			tail->next = head;
@@ -91,7 +92,7 @@ public:
 		}
 	} // end function 
 
-	// By default, it inserts the node at the start
+	  // By default, it inserts the node at the start
 	void addNode(X val, int index = 0) {
 
 		if (index == len) // add at end
@@ -99,14 +100,14 @@ public:
 
 		else if (index == 0) // add at start
 			addNodeStart(val);
-		
-		
+
+
 		else if (index > 0 && index < len) { // add in between
 
-			Node* current = head, * prev = NULL;
+			Node* current = head, *prev = NULL;
 
 
-			for (int i = 0; i < index-1; i++) {
+			for (int i = 0; i < index; i++) {
 				prev = current;
 				current = current->next;
 			}
@@ -177,8 +178,8 @@ public:
 	} // end function 
 
 	  // this function deleted node at provided index
-	void deleteNodeAt(int index =0)	{
-		
+	void deleteNodeAt(int index = 0) {
+
 		if (index == 0) // if index is 1 deelte first node
 			deleteFirst();
 
@@ -187,9 +188,9 @@ public:
 
 		else if (index > 0 && index < len) {
 			if (!isEmpty()) {
-				Node* current = head, * prev = NULL;
+				Node* current = head, *prev = NULL;
 
-				for (int i = 0; i < index-1; i++) {
+				for (int i = 0; i < index; i++) {
 					prev = current;
 					current = current->next;
 				}
@@ -209,9 +210,9 @@ public:
 	} // end function
 
 	  // this function deletes the node which contains the provided value
-	void deleteNode(X val) {		
+	void deleteNode(X val) {
 
-		Node* ptr, * delNode;
+		Node* ptr, *delNode;
 
 		if (isEmpty()) { // no node present
 			cout << "Delete operation cannot be done. List is empty." << endl;
@@ -234,7 +235,7 @@ public:
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delNode->next->prev = delNode->prev;
-				delete delNode; 
+				delete delNode;
 				len--; // decrement length
 			}
 			else {

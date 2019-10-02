@@ -1,29 +1,29 @@
 /* This space is left intentionally to improve readability */
 
 /* This .cpp file contains the definition of Singly Linked List
-   We have made this class generic by using 'template' keyword
-   having 'X' as a placeholder for the datatype */
+We have made this class generic by using 'template' keyword
+having 'X' as a placeholder for the datatype */
 
 #include <iostream>
 
 using namespace std;
 
-template <class X> 
+template <class X>
 class SinglyLinkedList { // class singlylinkedlist starts
 
 private:
 
 	// class node starts
 
-	class Node { 
+	class Node {
 
 	public:
 		X info; // data in node
 		Node* next; // pointer to next node
 
 		Node(X val = 0, Node * ptr = NULL) { // constructor for node
-		this->info = val;
-		this->next = ptr;
+			this->info = val;
+			this->next = ptr;
 		}
 	}; // class node ends
 
@@ -36,10 +36,10 @@ public:
 
 	// Constructor defition starts here
 
-		SinglyLinkedList() {
-			head = tail = NULL;
-			len = 0;
-		}
+	SinglyLinkedList() {
+		head = tail = NULL;
+		len = 0;
+	}
 
 	// Member function's definition starts here
 
@@ -55,7 +55,7 @@ public:
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
-		
+
 		len++; // length increases as new node is added
 
 		if (head == NULL) { // if no node is present
@@ -75,7 +75,7 @@ public:
 
 		else if (index >= 0 && index < len) { // adds somwhere in between
 
-			Node* current = head, * prev = NULL;
+			Node* current = head, *prev = NULL;
 
 
 			for (int i = 0; i < index; i++) {
@@ -100,10 +100,10 @@ public:
 		}
 	} // function addNode ends
 
-	// deletes the node which has same value as the value provided
+	  // deletes the node which has same value as the value provided
 	void deleteNode(X val) {		// Delete node by value
 
-		Node* ptr, * delNode;
+		Node* ptr, *delNode;
 
 		if (isEmpty()) { // if list is empty 
 			cout << "Delete operation cannot be done. List is empty." << endl;
@@ -137,7 +137,7 @@ public:
 
 		if (!isEmpty()) {
 			if (index >= 0 && index < len) {
-				Node* current = head, * prev = NULL;
+				Node* current = head, *prev = NULL;
 
 				for (int i = 0; i < index; i++) {
 					prev = current;
@@ -193,7 +193,7 @@ public:
 
 	void searchFor(X val) { // this function search for the given value and display the index at which it is found
 
-		if (!isEmpty()) { 
+		if (!isEmpty()) {
 			Node* ptr = head;
 			int index = 0;
 			int flag = 0;
