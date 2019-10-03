@@ -18,7 +18,7 @@ private:
 	class Node { 
 
 	public:
-		X info; // data in node
+		X info;		 // data in node
 		Node* next; // pointer to next node
 
 		Node(X val = 0, Node * ptr = NULL) { // constructor for node
@@ -58,7 +58,7 @@ public:
 		
 		len++; // length increases as new node is added
 
-		if (head == NULL) { // if no node is present
+		if (isEmpty()) { // if no node is present
 			head = tail = newNode;
 		}
 		else { // if there are any nodes
@@ -84,7 +84,8 @@ public:
 			}
 
 			Node* newNode = new Node(val, current);
-			if (head == NULL) { // if no node present
+
+			if (isEmpty()) {				// if no node present
 				head = tail = newNode;
 			}
 			else if (!prev) {
@@ -121,9 +122,11 @@ public:
 				ptr = ptr->next;
 				i++;
 			}
-			if (i != len - 1) { // delete the node where value is found
+			if (i < len - 1) { // delete the node where value is found
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
+				if (delNode == tail)
+					tail = ptr;
 				delete delNode;
 				len--;
 			}
@@ -136,7 +139,10 @@ public:
 	void deleteNodeAt(int index = len - 1) {			// Delete node by the respective index 
 
 		if (!isEmpty()) {
-			if (index >= 0 && index < len) {
+			if (index == 0)
+				deleteFirstNode();
+
+			else if (index > 0 && index < len) {
 				Node* current = head, * prev = NULL;
 
 				for (int i = 0; i < index; i++) {

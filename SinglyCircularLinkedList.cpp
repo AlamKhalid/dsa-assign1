@@ -53,11 +53,10 @@ public:
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
-		Node* ptr;
 
 		len++; // lenght incremented
 
-		if (head == NULL) { // add at start
+		if (isEmpty()) { // add at start
 			head = tail = newNode;
 			tail->next = head;
 		}
@@ -84,7 +83,8 @@ public:
 			}
 
 			Node* newNode = new Node(val, current);
-			if (head == NULL) { // if no node
+
+			if (isEmpty()) { // if no node
 				head = tail = newNode;
 				tail->next = head; // tail points to head for circular
 			}
@@ -124,9 +124,12 @@ public:
 				ptr = ptr->next;
 				i++;
 			}
-			if (i != len - 1) {
+			if (i < len - 1) {
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
+				if (tail == delNode) {
+					tail = ptr;
+				}
 				delete delNode; // deletes the node
 				len--;
 			}

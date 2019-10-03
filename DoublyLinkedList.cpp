@@ -54,13 +54,14 @@ public:
 		Node* temp = new Node(val); 
 		len++;
 
-		if (head == NULL) // no node in list
+		if (isEmpty()) // no node in list
 		{
 			head = tail = temp;
 		}
 		else
 		{
 			temp->next = head;
+			head->prev = temp;
 			head = temp;
 		}
 	} // end funtion
@@ -71,7 +72,7 @@ public:
 		Node* temp = new Node(val);
 		len++;
 
-		if (head == NULL) // no node present
+		if (isEmpty()) // no node present
 		{
 			head = tail = temp;
 		}
@@ -218,7 +219,7 @@ public:
 				ptr = ptr->next;
 				i++;
 			}
-			if (i != len - 1) { // deletes node if value found
+			if (i < len - 1) { // deletes node if value found
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delNode->next->prev = delNode->prev;
