@@ -13,7 +13,7 @@ class DoublyCircularLinkedList { // class DoublyCircularLinkedList starts
 
 private:
 
-	int len; // lenght of list
+	int len; // length of list
 
 	class Node { // class node starts
 
@@ -22,14 +22,14 @@ private:
 		Node* next; // pointer to next node
 		Node* prev; // pointer to previous node
 
-		Node(X val = 0, Node* next = NULL , Node* prev = NULL) { // constructor of node
+		Node(X val = 0, Node * next = NULL, Node * prev = NULL) { // constructor of node
 			this->info = val;
 			this->next = next;
 			this->prev = prev;
 		} // constructor ends
 	}; // end class node
 
-	Node* head, *tail; // pointer to head and tail
+	Node* head, * tail; // pointer to head and tail
 
 public:
 
@@ -100,8 +100,8 @@ public:
 
 		else if (index == 0) // add at start
 			addNodeStart(val);
-		
-		
+
+
 		else if (index > 0 && index < len) { // add in between
 
 			Node* current = head, * prev = NULL;
@@ -178,8 +178,8 @@ public:
 	} // end function 
 
 	  // this function deleted node at provided index
-	void deleteNodeAt(int index =0)	{
-		
+	void deleteNodeAt(int index = 0) {
+
 		if (index == 0) // if index is 1 deelte first node
 			deleteFirst();
 
@@ -210,7 +210,7 @@ public:
 	} // end function
 
 	  // this function deletes the node which contains the provided value
-	void deleteNode(X val) {		
+	void deleteNode(X val) {
 
 		Node* ptr, * delNode;
 
@@ -235,7 +235,7 @@ public:
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
 				delNode->next->prev = delNode->prev;
-				delete delNode; 
+				delete delNode;
 				len--; // decrement length
 			}
 			else {

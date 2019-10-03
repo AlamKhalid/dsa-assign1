@@ -6,6 +6,7 @@ having 'X' as a placeholder for the datatype */
 
 #include <iostream>
 
+
 using namespace std;
 
 template <class X>
@@ -140,10 +141,10 @@ public:
 	} // end function
 
 	// this deletes the node by given index
-	void deleteNodeAt(int index = len - 1) {		
+	void deleteNodeAt(int index = len - 1) {
 
 		if (index == 0) // if index is 1 
-			deleteFirstNode();
+			deleteFirst();
 
 		else if (index >= 0 && index < len) {
 			if (!isEmpty()) {
@@ -170,7 +171,7 @@ public:
 	} // end function
 
 	// this function deletes first node
-	void deleteFirstNode() {
+	void deleteFirst() {
 
 		Node* ptr;
 		if (!isEmpty()) {
@@ -236,4 +237,12 @@ public:
 			cout << "List is empty." << endl;
 		}
 	} // end function
+
+	void deleteLast() {
+		deleteNodeAt();
+	}
+
+	void addNodeStart(X val) {
+		addNode(val);
+	}
 }; // end class SinglyCircularLinkedList

@@ -12,9 +12,11 @@
 
 using namespace std;
 
+
 int main()
 {
-loop:cout << "\t\t\t\t\t------------------------------" << endl;
+
+ loop:cout << "\t\t\t\t\t------------------------------" << endl;
 	cout << "\t\t\t\t\tData Structures and Algorithms" << endl;
 	cout << "\t\t\t\t\t------------------------------" << endl;
 
@@ -92,7 +94,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object0.deleteFirstNode();
+					object0.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -158,7 +160,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object1.deleteFirstNode();
+					object1.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -224,7 +226,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object2.deleteFirstNode();
+					object2.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -290,7 +292,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object3.deleteFirstNode();
+					object3.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -682,7 +684,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object8.deleteFirstNode();
+					object8.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -748,7 +750,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object9.deleteFirstNode();
+					object9.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -814,7 +816,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object10.deleteFirstNode();
+					object10.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -880,7 +882,7 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				}
 				else if (choice == 5)
 				{
-					object11.deleteFirstNode();
+					object11.deleteFirst();
 					system("CLS");
 				}
 				else if (choice == 6)
@@ -1226,5 +1228,5 @@ loop1:cout << "1- Int.\n2- Float.\n3- Char.\n4- Double." << endl;
 				cin >> choice;
 			}
 		}
-	}
+	} 
 }

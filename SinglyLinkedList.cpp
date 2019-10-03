@@ -1,29 +1,30 @@
 /* This space is left intentionally to improve readability */
 
 /* This .cpp file contains the definition of Singly Linked List
-   We have made this class generic by using 'template' keyword
-   having 'X' as a placeholder for the datatype */
+We have made this class generic by using 'template' keyword
+having 'X' as a placeholder for the datatype */
 
 #include <iostream>
 
+
 using namespace std;
 
-template <class X> 
+template <class X>
 class SinglyLinkedList { // class singlylinkedlist starts
 
 private:
 
 	// class node starts
 
-	class Node { 
+	class Node {
 
 	public:
-		X info;		 // data in node
+		X info; // data in node
 		Node* next; // pointer to next node
 
 		Node(X val = 0, Node * ptr = NULL) { // constructor for node
-		this->info = val;
-		this->next = ptr;
+			this->info = val;
+			this->next = ptr;
 		}
 	}; // class node ends
 
@@ -36,10 +37,10 @@ public:
 
 	// Constructor defition starts here
 
-		SinglyLinkedList() {
-			head = tail = NULL;
-			len = 0;
-		}
+	SinglyLinkedList() {
+		head = tail = NULL;
+		len = 0;
+	}
 
 	// Member function's definition starts here
 
@@ -55,10 +56,10 @@ public:
 	void addNodeEnd(X val) {
 
 		Node* newNode = new Node(val);
-		
+
 		len++; // length increases as new node is added
 
-		if (isEmpty()) { // if no node is present
+		if (head == NULL) { // if no node is present
 			head = tail = newNode;
 		}
 		else { // if there are any nodes
@@ -68,14 +69,14 @@ public:
 	}
 
 	// this function add node with the respective value at the given index
-	void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
+	virtual void addNode(X val, int index = 0) {		// By default, it inserts the data at the start
 
 		if (index == len) // adds node at end because index is same as len i.e the number of nodes already present
 			addNodeEnd(val);
 
 		else if (index >= 0 && index < len) { // adds somwhere in between
 
-			Node* current = head, * prev = NULL;
+			Node* current = head, *prev = NULL;
 
 
 			for (int i = 0; i < index; i++) {
@@ -84,8 +85,7 @@ public:
 			}
 
 			Node* newNode = new Node(val, current);
-
-			if (isEmpty()) {				// if no node present
+			if (head == NULL) { // if no node present
 				head = tail = newNode;
 			}
 			else if (!prev) {
@@ -101,10 +101,10 @@ public:
 		}
 	} // function addNode ends
 
-	// deletes the node which has same value as the value provided
+	  // deletes the node which has same value as the value provided
 	void deleteNode(X val) {		// Delete node by value
 
-		Node* ptr, * delNode;
+		Node* ptr, *delNode;
 
 		if (isEmpty()) { // if list is empty 
 			cout << "Delete operation cannot be done. List is empty." << endl;
@@ -122,11 +122,9 @@ public:
 				ptr = ptr->next;
 				i++;
 			}
-			if (i < len - 1) { // delete the node where value is found
+			if (i != len - 1) { // delete the node where value is found
 				delNode = ptr->next;
 				ptr->next = ptr->next->next;
-				if (delNode == tail)
-					tail = ptr;
 				delete delNode;
 				len--;
 			}
@@ -139,11 +137,8 @@ public:
 	void deleteNodeAt(int index = len - 1) {			// Delete node by the respective index 
 
 		if (!isEmpty()) {
-			if (index == 0)
-				deleteFirstNode();
-
-			else if (index > 0 && index < len) {
-				Node* current = head, * prev = NULL;
+			if (index >= 0 && index < len) {
+				Node* current = head, *prev = NULL;
 
 				for (int i = 0; i < index; i++) {
 					prev = current;
@@ -164,7 +159,7 @@ public:
 			cout << "List is empty." << endl;
 	} // function ends
 
-	void deleteFirstNode() { // delete first node 
+	void deleteFirst() { // delete first node 
 
 		Node* ptr;
 		if (!isEmpty()) {
@@ -199,7 +194,7 @@ public:
 
 	void searchFor(X val) { // this function search for the given value and display the index at which it is found
 
-		if (!isEmpty()) { 
+		if (!isEmpty()) {
 			Node* ptr = head;
 			int index = 0;
 			int flag = 0;
@@ -224,4 +219,12 @@ public:
 			cout << "List is empty." << endl;
 		}
 	} // end function 
-}; // end class singly linked list
+
+	void deleteLast() {
+		deleteNodeAt();
+	}
+
+	void addNodeStart(X val) {
+		addNode(val);
+	}
+};
