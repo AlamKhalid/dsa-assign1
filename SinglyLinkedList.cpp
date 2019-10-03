@@ -5,12 +5,12 @@ We have made this class generic by using 'template' keyword
 having 'X' as a placeholder for the datatype */
 
 #include <iostream>
-
+#include "List.cpp"
 
 using namespace std;
 
 template <class X>
-class SinglyLinkedList { // class singlylinkedlist starts
+class SinglyLinkedList: public List<X> { // class singlylinkedlist starts
 
 private:
 
@@ -134,7 +134,7 @@ public:
 		}
 	} // end function delete by value
 
-	void deleteNodeAt(int index = len - 1) {			// Delete node by the respective index 
+	void deleteNodeAt(int index) {			// Delete node by the respective index 
 
 		if (!isEmpty()) {
 			if (index >= 0 && index < len) {
@@ -221,7 +221,7 @@ public:
 	} // end function 
 
 	void deleteLast() {
-		deleteNodeAt();
+		deleteNodeAt(len-1);
 	}
 
 	void addNodeStart(X val) {

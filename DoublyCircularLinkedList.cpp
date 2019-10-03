@@ -5,11 +5,12 @@ We have made this class generic by using 'template' keyword
 having 'X' as a placeholder for the datatype */
 
 #include <iostream>
+#include "List.cpp"
 
 using namespace std;
 
 template <class X>
-class DoublyCircularLinkedList { // class DoublyCircularLinkedList starts
+class DoublyCircularLinkedList: public List<X> { // class DoublyCircularLinkedList starts
 
 private:
 

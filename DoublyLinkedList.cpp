@@ -5,11 +5,12 @@ We have made this class generic by using 'template' keyword
 having 'X' as a placeholder for the datatype */
 
 #include <iostream>
+#include "List.cpp"
 
 using namespace std;
 
 template <class X>
-class DoublyLinkedList { 
+class DoublyLinkedList: public List<X> {
 
 private:
 
@@ -166,7 +167,7 @@ public:
 	} // end function 
 
 	// this function deleted node at provided index
-	void deleteNodeAt(int index = len - 1)	{ 
+	void deleteNodeAt(int index)	{ 
 		
 		if (index == 0) // if index is 1 deelte first node
 			deleteFirst();
